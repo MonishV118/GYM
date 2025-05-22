@@ -1,0 +1,43 @@
+-- Create database
+CREATE DATABASE IF NOT EXISTS gym_db;
+USE gym_db;
+
+-- USERS table (for login)
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+-- Insert admin user with password 'admin123'
+-- Run this only ONCE to avoid duplicate error
+INSERT IGNORE INTO users (username, password)
+VALUES ('admin', '$2y$10$Q9xUZ3/rOLm7rV5x9ZCge.6m6CDhdpkK5P1gtGGyaU0iLkOWsUPSi');
+
+-- TRAINERS table
+CREATE TABLE IF NOT EXISTS trainers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    specialization VARCHAR(100),
+    phone VARCHAR(15),
+    email VARCHAR(100)
+);
+
+-- PLANS table
+CREATE TABLE IF NOT EXISTS plans (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    duration VARCHAR(50),
+    price DECIMAL(10, 2),
+    description TEXT
+);
+
+-- Optional: Sample data for trainers
+INSERT INTO trainers (name, specialization, phone, email) VALUES
+('Ravi Kumar', 'Weight Training', '9876543210', 'ravi@example.com'),
+('Anjali Sharma', 'Yoga Instructor', '9123456789', 'anjali@example.com');
+
+-- Optional: Sample data for plans
+INSERT INTO plans (name, duration, price, description) VALUES
+('Basic Plan', '1 Month', 999.00, 'Access to gym during working hours.'),
+('Premium Plan', '3 Months', 2499.00, 'Includes trainer support and diet chart.');
